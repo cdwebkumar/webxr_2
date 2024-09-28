@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebXR Example</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+
+<body>
+
+    <a-scene class="web">
+        <a-sky src="images/vr2.jpg" rotation="8 -138 8"></a-sky>
+
+        
+
+    </a-scene>
+
+    <script>
+        document.querySelector('#giant-wheel-link').addEventListener('click', function () {
+
+            open('images/vr.jpg');
+            // const giantEntity = document.querySelector('#giant');
+            // const camera = document.querySelector('[camera]');
+            // if (giantEntity && camera) {
+            //     camera.setAttribute('position', giantEntity.getAttribute('position'));
+            //     camera.setAttribute('rotation', giantEntity.getAttribute('rotation'));
+            // }
+        });
+    </script>
+
+</body>
+
+</html>

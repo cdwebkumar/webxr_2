@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebXR Example</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        #toggleImage {
+            position: fixed;
+            bottom: 20%;
+            left: 2%;
+            width: 50px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #imageContainer {
+            position: fixed;
+            bottom: 25%;
+            left: 10%;
+            display: none;
+            z-index: 1000;
+        }
+
+        #imageContainer a.pl-1 {
+            position: absolute;
+            top: 10%;
+            left: 2%;
+            text-decoration: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            z-index: 1;
+            background-color: #e74747;
+        }
+
+        #imageContainer img {
+            width: 40%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a-scene class="web">
+        <a-sky src="images/vr.jpg" rotation="8 -138 8"></a-sky>
+
+        <a-entity position="35.5 18.5 23.6" rotation="10 -130 10" cursor="fuse: true; rayOrigin: mouse">
+            <a-plane position="0 0 0" width="27" height="5" color="transparent" opacity="0.7"
+                event-set__enter="_event: mouseenter; color: #ccc;" event-set__leave="_event: mouseleave; color: #ccc;"
+                id="giant-wheel-link">
+            </a-plane>
+            <a-text value="Giant Wheel" width="80" color="#f53b3b" position="-10 0 0.1" opacity="1"></a-text>
+        </a-entity>
+
+        <a-entity position="-34.5 -69.5 -33.5" rotation="10 -50 10" cursor="fuse: true; rayOrigin: mouse">
+            <a-plane position="-181.5 -139.5 -63.5" width="27" height="20" color="transparent" opacity="0.7"
+                event-set__enter="_event: mouseenter; color: #ccc;" event-set__leave="_event: mouseleave; color: #ccc;"
+                id="giant">
+            </a-plane>
+            <a-text value="Dustbin" width="230" position="-64.5 -30.5 -33.5" rotation="-60 10 10" color="#f53b3b"
+                opacity="1"></a-text>
+        </a-entity>
+    </a-scene>
+
+    <img id="toggleImage" src="images/toggle.png" alt="Toggle Image" onclick="toggleImage()">
+
+    <div id="imageContainer">
+        <img src="images/vr.jpg" alt="Mapping Image">
+        <a href="vr-view-2.html" class="pl-1"></a>
+    </div>
+
+    <script>
+        document.querySelector('#giant-wheel-link').addEventListener('click', function () {
+            window.open('vr-view-2.html');
+        });
+
+        function toggleImage() {
+            const imageContainer = document.getElementById('imageContainer');
+            const isVisible = imageContainer.style.display === 'block';
+            imageContainer.style.display = isVisible ? 'none' : 'block';
+
+            if (!isVisible) {
+                document.addEventListener('click', outsideClickListener);
+            } else {
+                document.removeEventListener('click', outsideClickListener);
+            }
+        }
+
+        function outsideClickListener(event) {
+            const imageContainer = document.getElementById('imageContainer');
+            const toggleImage = document.getElementById('toggleImage');
+
+            if (!imageContainer.contains(event.target) && event.target !== toggleImage) {
+                imageContainer.style.display = 'none';
+                document.removeEventListener('click', outsideClickListener);
+            }
+        }
+    </script>
+</body>
+
+</html>
